@@ -8,18 +8,20 @@
 class Deck
 {
 private:
-	std::vector<Card*> deck;
-	int numFaces;
-	int numSuits;
+	std::vector<Card> deck;
+	int m_numFaces;
+	int m_numSuits;
+	int m_cardCount;
 	
 protected:
 public:
 	Deck();
-	~Deck();
 	void shuffle();
 	void shuffle(unsigned int);
-	Card* drawTop();
+	bool drawTop(std::vector<Card> &hand);
 	void printDeck();
+	Card& operator[] (const int index);
+	int getCardCount();
 };
 
 #endif //DECK_HPP
