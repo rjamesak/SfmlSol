@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Solitaire.hpp"
 #include "Deck.hpp"
+#include <iostream>
 
 
 int main()
@@ -8,16 +9,17 @@ int main()
 
 	Deck deck;
 	Solitaire game;
-	std::vector<sf::Sprite> spriteVec = game.createCardSprites(deck);
+	game.createCardSprites(deck);
+	std::vector<sf::Sprite> spriteHand;
+
+	sf::Clock gameClock;
 
 	//set Position of sprites
-	for (int i = 0; i < 13; i++) {
-		for (int j = 0; j < 4; j++) {
-			spriteVec[i].setPosition(50.f * i + 50.f, 72.6f * j + 40.f);
-		}
-	}
+	game.setCardGrid(50.f, 75.f);
+	//game.addSpriteToHand(spriteHand);
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Cards");
+
+	sf::RenderWindow window(sf::VideoMode(1200, 800), "Cards");
 
 	while (window.isOpen()) {
 		sf::Event e;
@@ -25,14 +27,20 @@ int main()
 			if (e.type == sf::Event::Closed) {
 				window.close();
 			}
+			
+			
 		}
 
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			game.grabCard(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+		}
 
 		window.clear();
-		for (int i = 0; i < spriteVec.size(); i++) {
-			window.draw(spriteVec[i]);
-		}
+		game.displayCards(window);
+		//window.draw(spriteHand[0]);
+		//window.draw(testSprite);
 		window.display();
+
 
 
 	}

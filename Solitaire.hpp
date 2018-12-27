@@ -10,9 +10,16 @@ class Solitaire
 {
 private:
 	std::vector<sf::Sprite> cardSpriteVec;
+	std::vector<sf::Texture*> texVec;
 protected:
 public:
-	std::vector<sf::Sprite> createCardSprites(Deck deckIn);
+	~Solitaire();
+	void createCardSprites(Deck deckIn);
+	void displayCards(sf::RenderWindow&);
+	void addSpriteToHand(std::vector<sf::Sprite> &handIn);
+	void setCardGrid(float xIn, float yIn);
+	void grabCard(float mouseXPos, float mouseYPos);
+	void grabCard(sf::Vector2f mousePos);
 
 
 };
